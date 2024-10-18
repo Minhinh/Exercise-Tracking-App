@@ -21,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LogExerciseActivity" />
+        <activity android:name=".ProgressActivity" />
+        <activity android:name=".WorkoutPlannerActivity" />
     </application>
 
 </manifest>

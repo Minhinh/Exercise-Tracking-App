@@ -1,12 +1,16 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+
 }
 
 android {
     namespace = "com.example.assignment3_keeptrack"
     compileSdk = 34
-
+    viewBinding {
+        enable = true
+    }
     defaultConfig {
         applicationId = "com.example.assignment3_keeptrack"
         minSdk = 33
@@ -43,6 +47,8 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.navigation.fragment)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
