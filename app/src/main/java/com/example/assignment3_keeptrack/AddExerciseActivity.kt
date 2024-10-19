@@ -2,10 +2,9 @@ package com.example.assignment3_keeptrack
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.assignment3_keeptrack.databinding.ActivityAddExerciseBinding
-import com.example.assignment3_keeptrack.MainActivity.Companion.EXTRA_EXERCISE
 
 class AddExerciseActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddExerciseBinding
@@ -18,26 +17,38 @@ class AddExerciseActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.saveButton.setOnClickListener {
-            val exerciseName = binding.exerciseNameEdit.text.toString()
+            val exerciseName = binding.exerciseNameEdit.text.toString().trim()
             val duration = binding.durationEdit.text.toString().toIntOrNull() ?: 0
             val sets = binding.setsEdit.text.toString().toIntOrNull() ?: 0
             val reps = binding.repsEdit.text.toString().toIntOrNull() ?: 0
             val caloriesBurned = binding.caloriesEdit.text.toString().toIntOrNull() ?: 0
             val difficulty = binding.difficultySpinner.selectedItem.toString()
 
-            // Create a new Exercise object (adjust as needed)
+            // Validate inputs
+            if (exerciseName.isEmpty()) {
+                Toast.makeText(this, "Please enter a valid exercise name.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (duration <= 0 || sets <= 0 || reps <= 0) {
+                Toast.makeText(this, "Duration, sets, and reps should be greater than 0.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Create a new Exercise object
             val newExercise = Exercise(
                 name = exerciseName,
                 duration = duration,
                 sets = sets,
                 reps = reps,
                 caloriesBurned = caloriesBurned,
-                date = "", // Set to a default value or current date if needed
+                date = "", // Set the date if needed
                 difficulty = difficulty
             )
 
+            // Return the new exercise to the MainActivity
             val resultIntent = Intent().apply {
-                putExtra(EXTRA_EXERCISE, newExercise)
+                putExtra(MainActivity.EXTRA_EXERCISE, newExercise)
             }
             setResult(RESULT_OK, resultIntent)
             finish()

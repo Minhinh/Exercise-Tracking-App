@@ -1,11 +1,11 @@
 package com.example.assignment3_keeptrack
 
+import com.example.assignment3_keeptrack.MainActivity.Companion.EXTRA_EXERCISE
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.assignment3_keeptrack.databinding.ActivityEditExerciseBinding
-import com.example.assignment3_keeptrack.MainActivity.Companion.EXTRA_EXERCISE
 
 class EditExerciseActivity : AppCompatActivity() {
     private lateinit var exercise: Exercise

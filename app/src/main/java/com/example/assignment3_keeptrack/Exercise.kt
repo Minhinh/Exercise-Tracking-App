@@ -13,8 +13,8 @@ data class Exercise(
     var sets: Int,
     var reps: Int,
     var caloriesBurned: Int,
-    var date: String,
-    var difficulty: String
+    var date: String = "", // Default value can be set here
+    var difficulty: String = "" // Default value can be set here
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),

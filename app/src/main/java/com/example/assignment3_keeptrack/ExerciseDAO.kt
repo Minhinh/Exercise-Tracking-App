@@ -4,7 +4,7 @@ import androidx.room.*
 
 @Dao
 interface ExerciseDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(exercise: Exercise)
 
     @Update
@@ -13,6 +13,6 @@ interface ExerciseDao {
     @Delete
     suspend fun delete(exercise: Exercise)
 
-    @Query("SELECT * FROM exercise_table ORDER BY date DESC")
+    @Query("SELECT * FROM exercise_table ORDER BY id DESC")
     suspend fun getAllExercises(): List<Exercise>
 }
