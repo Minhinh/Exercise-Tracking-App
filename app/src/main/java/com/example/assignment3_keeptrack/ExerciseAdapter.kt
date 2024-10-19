@@ -16,7 +16,10 @@ class ExerciseAdapter(
 
         init {
             view.setOnClickListener {
-                onClick(exercises[adapterPosition])
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onClick(exercises[position])
+                }
             }
         }
     }
