@@ -1,8 +1,7 @@
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-
+    id("kotlin-parcelize")
 }
 
 android {
@@ -11,6 +10,9 @@ android {
     viewBinding {
         enable = true
     }
+    //buildFeatures {
+     //   dataBinding = true
+  //  }
     defaultConfig {
         applicationId = "com.example.assignment3_keeptrack"
         minSdk = 33
@@ -40,7 +42,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -49,6 +50,9 @@ dependencies {
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.support.annotations)
+    implementation(libs.androidx.recyclerview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -4,28 +4,15 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/btnLogExercise"
+        android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log Exercise" />
+        android:text="Add Exercise" />
 
-    <Button
-        android:id="@+id/btnViewProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Progress"
-        android:layout_below="@id/btnLogExercise" />
-
-    <Button
-        android:id="@+id/btnWorkoutPlanner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Workout Planner"
-        android:layout_below="@id/btnViewProgress" />
-
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/btnWorkoutPlanner" />
+        android:layout_margin="16dp"
+        android:scrollbars="vertical"/>
 </RelativeLayout>
