@@ -1,18 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <EditText
-        android:id="@+id/exercise_name_edit"
+        android:id="@+id/exerciseNameEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Exercise Name" />
 
+    <EditText
+        android:id="@+id/durationEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Duration (minutes)"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/setsEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Sets"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/repsEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Reps"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/caloriesEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Calories Burned"
+        android:inputType="number" />
+
+    <Spinner
+        android:id="@+id/difficultySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/difficulty_levels" />
+
     <Button
-        android:id="@+id/save_button"
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save" />
+        android:text="Save Exercise" />
 </LinearLayout>
