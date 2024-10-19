@@ -1,21 +1,18 @@
 package com.example.assignment3_keeptrack
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface ExerciseDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(exercise: Exercise)
 
     @Update
     suspend fun update(exercise: Exercise)
 
-    @Query("SELECT * FROM exercise ORDER BY name ASC")
-    suspend fun getAllExercises(): List<Exercise>
+    @Delete
+    suspend fun delete(exercise: Exercise)
 
-    @Query("SELECT * FROM exercise WHERE id = :id LIMIT 1")
-    suspend fun getExerciseById(id: Long): Exercise?
+    @Query("SELECT * FROM exercise_table ORDER BY date DESC")
+    suspend fun getAllExercises(): List<Exercise>
 }

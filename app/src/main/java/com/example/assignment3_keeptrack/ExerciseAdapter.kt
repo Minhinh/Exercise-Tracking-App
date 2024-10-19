@@ -13,13 +13,12 @@ class ExerciseAdapter(
 
     inner class ExerciseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val exerciseName: TextView = view.findViewById(R.id.exercise_name)
+        val exerciseDetails: TextView = view.findViewById(R.id.exercise_details)
+        val exerciseCalories: TextView = view.findViewById(R.id.exercise_calories)
 
         init {
             view.setOnClickListener {
-                val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    onClick(exercises[position])
-                }
+                onClick(exercises[bindingAdapterPosition]) // `bindingAdapterPosition` replaces `adapterPosition`
             }
         }
     }
@@ -30,7 +29,10 @@ class ExerciseAdapter(
     }
 
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
-        holder.exerciseName.text = exercises[position].name
+        val exercise = exercises[position]
+        holder.exerciseName.text = exercise.name
+        holder.exerciseDetails.text = "Duration: ${exercise.duration} mins | Sets: ${exercise.sets} | Reps: ${exercise.reps}"
+        holder.exerciseCalories.text = "Calories Burned: ${exercise.caloriesBurned} kcal"
     }
 
     override fun getItemCount() = exercises.size
