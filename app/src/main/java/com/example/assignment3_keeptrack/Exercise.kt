@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
+// Using Parcelable to pass Exercise objects between activities
 
 @Entity(tableName = "exercise_table")
 data class Exercise(
@@ -13,8 +14,8 @@ data class Exercise(
     var sets: Int,
     var reps: Int,
     var caloriesBurned: Int,
-    var date: String = "", // Default value can be set here
-    var difficulty: String = "" // Default value can be set here
+    var date: String = "",
+    var difficulty: String = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),

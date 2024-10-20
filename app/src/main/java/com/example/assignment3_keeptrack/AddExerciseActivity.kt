@@ -2,16 +2,15 @@ package com.example.assignment3_keeptrack
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.assignment3_keeptrack.databinding.ActivityAddExerciseBinding
+import com.google.android.material.snackbar.Snackbar // Import Snackbar
 
 class AddExerciseActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddExerciseBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // Initialize View Binding
         binding = ActivityAddExerciseBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -27,12 +26,12 @@ class AddExerciseActivity : AppCompatActivity() {
 
             // Validate inputs
             if (exerciseName.isEmpty()) {
-                Toast.makeText(this, "Please enter a valid exercise name.", Toast.LENGTH_SHORT).show()
+                showSnackbar("Please enter a valid exercise name.")
                 return@setOnClickListener
             }
 
             if (duration <= 0 || sets <= 0 || reps <= 0) {
-                Toast.makeText(this, "Duration, sets, and reps should be greater than 0.", Toast.LENGTH_SHORT).show()
+                showSnackbar("Duration, sets, and reps should be greater than 0.")
                 return@setOnClickListener
             }
 
@@ -60,5 +59,9 @@ class AddExerciseActivity : AppCompatActivity() {
             setResult(RESULT_CANCELED)
             finish() // Finish the activity and return to MainActivity
         }
+    }
+    // Function to show Snackbar messages
+    private fun showSnackbar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 }
