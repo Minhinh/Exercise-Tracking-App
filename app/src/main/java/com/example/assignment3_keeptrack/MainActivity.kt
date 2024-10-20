@@ -7,11 +7,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.assignment3_keeptrack.AddExerciseActivity
-import com.example.assignment3_keeptrack.Exercise
-import com.example.assignment3_keeptrack.ExerciseAdapter
-import com.example.assignment3_keeptrack.ExerciseDao
-import com.example.assignment3_keeptrack.ExerciseDatabase
 import com.example.assignment3_keeptrack.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
