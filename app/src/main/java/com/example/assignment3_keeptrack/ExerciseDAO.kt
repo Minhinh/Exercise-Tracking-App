@@ -1,5 +1,6 @@
 package com.example.assignment3_keeptrack
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -14,5 +15,5 @@ interface ExerciseDao {
     suspend fun delete(exercise: Exercise)
 
     @Query("SELECT * FROM exercise_table ORDER BY id DESC")
-    suspend fun getAllExercises(): List<Exercise>
+    fun getAllExercises(): LiveData<List<Exercise>>
 }

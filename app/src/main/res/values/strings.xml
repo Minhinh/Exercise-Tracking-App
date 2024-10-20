@@ -8,6 +8,7 @@
     <string name="exercise_date_label">Date: %1$s</string>
     <string name="delete_button_text">Delete</string>
     <string name="add_exercise_button_description">Add Exercise</string>
+    <string name="add_exercise">Add Exercise +</string>
     <string-array name="difficulty_levels">
         <item>Easy</item>
         <item>Medium</item>

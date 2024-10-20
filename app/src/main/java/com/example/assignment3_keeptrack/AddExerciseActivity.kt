@@ -23,6 +23,7 @@ class AddExerciseActivity : AppCompatActivity() {
             val reps = binding.repsEdit.text.toString().toIntOrNull() ?: 0
             val caloriesBurned = binding.caloriesEdit.text.toString().toIntOrNull() ?: 0
             val difficulty = binding.difficultySpinner.selectedItem.toString()
+            val date = binding.dateEdit.text.toString().trim() // Get date input
 
             // Validate inputs
             if (exerciseName.isEmpty()) {
@@ -42,7 +43,7 @@ class AddExerciseActivity : AppCompatActivity() {
                 sets = sets,
                 reps = reps,
                 caloriesBurned = caloriesBurned,
-                date = "", // Set the date if needed
+                date = date, // Set the date if needed
                 difficulty = difficulty
             )
 
@@ -52,6 +53,12 @@ class AddExerciseActivity : AppCompatActivity() {
             }
             setResult(RESULT_OK, resultIntent)
             finish()
+        }
+
+        // Cancel button click listener
+        binding.cancelButton.setOnClickListener {
+            setResult(RESULT_CANCELED)
+            finish() // Finish the activity and return to MainActivity
         }
     }
 }

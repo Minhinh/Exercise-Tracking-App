@@ -38,15 +38,32 @@
         android:hint="Calories Burned"
         android:inputType="number" />
 
+    <EditText
+        android:id="@+id/dateEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter date (e.g., 20-12-2024)"
+        android:inputType="date"/>
+
     <Spinner
         android:id="@+id/difficultySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/difficulty_levels" />
+        android:entries="@array/difficulty_levels"/>
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save Exercise" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorError"
+        android:textColor="@android:color/white"
+        android:text="Cancel"
+        android:layout_marginTop="16dp"/>
+
 </LinearLayout>

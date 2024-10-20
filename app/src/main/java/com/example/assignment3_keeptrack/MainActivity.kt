@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.assignment3_keeptrack.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -19,8 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var exerciseAdapter: ExerciseAdapter
-    private val exerciseList = mutableListOf<Exercise>()
-    private lateinit var exerciseDao: ExerciseDao
+    private lateinit var viewModel: ExerciseViewModel
 
     private val addExerciseLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -28,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                 val exercise = result.data?.getParcelableExtra(EXTRA_EXERCISE, Exercise::class.java)
                 exercise?.let {
                     // Add the new exercise to the database
-                    saveExercise(it)
+                    viewModel.insert(it)
                 }
             }
         }
@@ -39,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 val updatedExercise = result.data?.getParcelableExtra(EXTRA_EXERCISE, Exercise::class.java)
                 updatedExercise?.let {
                     // Update the exercise in the database
-                    updateExercise(it)
+                    viewModel.update(it)
                 }
             }
         }
@@ -50,16 +47,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize Room database
-        val exerciseDatabase = ExerciseDatabase.getDatabase(applicationContext)
-        exerciseDao = exerciseDatabase.exerciseDao()
-        Log.d("ExerciseDatabase", "Database initialized.")
+        // Initialize ViewModel
+        viewModel = ViewModelProvider(this).get(ExerciseViewModel::class.java)
 
         // Set up RecyclerView
         setupRecyclerView()
 
-        // Fetch exercises from the database
-        fetchExercisesFromDatabase()
+        // Observe LiveData from ViewModel
+        observeExercises()
 
         // Launch AddExerciseActivity
         binding.addExerciseButton.setOnClickListener {
@@ -70,16 +65,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        exerciseAdapter = ExerciseAdapter(exerciseList, { exercise ->
-            // Handle edit action
-            val intent = Intent(this, EditExerciseActivity::class.java).apply {
-                putExtra(EXTRA_EXERCISE, exercise)
+        // Initialize the ExerciseAdapter with click and delete actions
+        exerciseAdapter = ExerciseAdapter(
+            onClick = { exercise ->
+                // Handle edit action
+                val intent = Intent(this, EditExerciseActivity::class.java).apply {
+                    putExtra(EXTRA_EXERCISE, exercise)
+                }
+                editExerciseLauncher.launch(intent) // Launch EditExerciseActivity
+            },
+            onDelete = { exercise ->
+                // Handle delete action
+                viewModel.delete(exercise)
             }
-            editExerciseLauncher.launch(intent) // Launch EditExerciseActivity
-        }, { exercise ->
-            // Handle delete action
-            deleteExercise(exercise)
-        })
+        )
 
         binding.exerciseRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -87,51 +86,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveExercise(exercise: Exercise) {
-        Log.d("ExerciseDatabase", "Attempting to save exercise: $exercise")
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                exerciseDao.insert(exercise)
-                Log.d("ExerciseDatabase", "Inserted exercise: $exercise")
-                fetchExercisesFromDatabase()
-            } catch (e: Exception) {
-                Log.e("ExerciseDatabase", "Error inserting exercise: ${e.message}")
-            }
-        }
-    }
-
-    private fun updateExercise(updatedExercise: Exercise) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                exerciseDao.update(updatedExercise) // Ensure this method exists in ExerciseDao
-                fetchExercisesFromDatabase() // Refresh the exercise list
-            } catch (e: Exception) {
-                Log.e("ExerciseDatabase", "Error updating exercise: ${e.message}")
-            }
-        }
-    }
-
-    private fun deleteExercise(exercise: Exercise) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                exerciseDao.delete(exercise) // Ensure this method exists in ExerciseDao
-                fetchExercisesFromDatabase() // Refresh the exercise list
-            } catch (e: Exception) {
-                Log.e("ExerciseDatabase", "Error deleting exercise: ${e.message}")
-            }
-        }
-    }
-
-    private fun fetchExercisesFromDatabase() {
-        Log.d("ExerciseDatabase", "Attempting to fetch exercises from database.")
-        lifecycleScope.launch {
-            val exercises = withContext(Dispatchers.IO) {
-                exerciseDao.getAllExercises()
-            }
+    private fun observeExercises() {
+        viewModel.allExercises.observe(this, Observer { exercises ->
             Log.d("ExerciseDatabase", "Fetched exercises: $exercises")
-            exerciseList.clear()
-            exerciseList.addAll(exercises)
-            exerciseAdapter.notifyDataSetChanged()
-        }
+            exerciseAdapter.submitList(exercises) // Update adapter with new data
+        })
     }
 }

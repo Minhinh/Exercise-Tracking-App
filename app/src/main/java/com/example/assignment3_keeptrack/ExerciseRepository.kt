@@ -1,20 +1,23 @@
 package com.example.assignment3_keeptrack
 
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class ExerciseRepository(private val exerciseDao: ExerciseDao) {
 
-    suspend fun insert(exercise: Exercise) {
-        withContext(Dispatchers.IO) {
-            exerciseDao.insert(exercise)
-        }
+    // Expose LiveData from DAO
+    fun getAllExercises(): LiveData<List<Exercise>> {
+        return exerciseDao.getAllExercises() // This should return LiveData
     }
 
-    suspend fun getAllExercises(): List<Exercise> {
-        return withContext(Dispatchers.IO) {
-            exerciseDao.getAllExercises()
-        }
+    suspend fun insert(exercise: Exercise) {
+        exerciseDao.insert(exercise) // No need for withContext since DAO functions should be called from a ViewModel's coroutine scope
+    }
+
+    suspend fun update(exercise: Exercise) {
+        exerciseDao.update(exercise)
+    }
+
+    suspend fun delete(exercise: Exercise) {
+        exerciseDao.delete(exercise)
     }
 }

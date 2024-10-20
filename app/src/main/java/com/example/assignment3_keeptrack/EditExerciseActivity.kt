@@ -19,12 +19,13 @@ class EditExerciseActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Access views via binding
-        exercise = intent.getParcelableExtra(EXTRA_EXERCISE, Exercise::class.java) ?: return
+        exercise = intent.getParcelableExtra(EXTRA_EXERCISE) ?: return
         binding.exerciseNameEdit.setText(exercise.name)
         binding.exerciseDurationEdit.setText(exercise.duration.toString())
         binding.exerciseSetsEdit.setText(exercise.sets.toString())
         binding.exerciseRepsEdit.setText(exercise.reps.toString())
         binding.exerciseCaloriesEdit.setText(exercise.caloriesBurned.toString())
+        binding.dateEdit.setText(exercise.date) // Set the date in the EditText
 
         binding.saveButton.setOnClickListener {
             exercise.name = binding.exerciseNameEdit.text.toString()
@@ -32,12 +33,19 @@ class EditExerciseActivity : AppCompatActivity() {
             exercise.sets = binding.exerciseSetsEdit.text.toString().toIntOrNull() ?: exercise.sets
             exercise.reps = binding.exerciseRepsEdit.text.toString().toIntOrNull() ?: exercise.reps
             exercise.caloriesBurned = binding.exerciseCaloriesEdit.text.toString().toIntOrNull() ?: exercise.caloriesBurned
+            exercise.date = binding.dateEdit.text.toString().trim() // Get the updated date
 
             val resultIntent = Intent().apply {
                 putExtra(EXTRA_EXERCISE, exercise)
             }
             setResult(Activity.RESULT_OK, resultIntent)
             finish()
+        }
+
+        // Cancel button click listener
+        binding.cancelButton.setOnClickListener {
+            setResult(Activity.RESULT_CANCELED)
+            finish() // Finish the activity and return to MainActivity
         }
     }
 }
