@@ -1,1 +1,67 @@
+# Assignment3_KeepTrack - Exercise Tracking App
 
+## Overview
+
+**Assignment3_KeepTrack** is an Android application designed to help users keep track of their exercises and workouts. The app allows users to add, edit, delete, and view detailed information about their exercises, as well as track their progress over time. It integrates advanced features like search/filtering, LiveData for real-time updates, and displays statistics to help users analyze their workout routines. The app is implemented using Kotlin, with a focus on traditional XML layouts and modern Android development practices.
+
+## Features
+
+- **Exercise Management**: 
+  - Add new exercises, including details such as name, duration, sets, reps, calories burned, and date.
+  - Edit or delete existing exercises easily.
+  - View a list of all recorded exercises.
+- **Search & Filtering**: 
+  - Quickly search for exercises by name or date.
+- **Statistics**: 
+  - Analyze workout routines with visual representations like charts and graphs.
+  - View aggregated data such as total calories burned and average exercise duration.
+- **User-Friendly Interface**:
+  - Intuitive and clean design for easy navigation.
+  - Snackbar feedback on important actions (e.g., save, delete, cancel).
+- **Real-Time Data Updates**: 
+  - Utilizes LiveData and ViewModel for seamless updates to the user interface without manual refreshes.
+- **Room Database**: 
+  - Persistent data storage to ensure exercise records are saved across app restarts.
+
+## Technologies Used
+
+- **Kotlin**: Core language used for app development.
+- **Android SDK**: Utilizes Android development tools and SDK components.
+- **XML Layouts**: Traditional XML used for user interface design.
+- **Room Database**: Manages persistent data storage for exercises.
+- **LiveData & ViewModel**: Ensures real-time data updates and lifecycle-aware components.
+- **RecyclerView**: Displays exercise list with smooth scrolling and complex layouts.
+
+## Screenshots
+
+(Add screenshots here to give users a visual representation of the app.)
+
+## Layouts
+
+### Main Activity Layout
+- Displays a list of recorded exercises in a RecyclerView.
+- Features a search bar for quick filtering.
+- Buttons to add new exercises or view overall statistics.
+
+### Add/Edit Activity Layout
+- Form to input exercise details such as name, duration, sets, reps, calories burned, and date.
+- Save or cancel changes with intuitive button actions.
+- Snackbar confirmation for successful actions.
+
+### Statistics Activity Layout
+- Graphical representation of workout data.
+- Showcases total calories burned, average duration, and more.
+- Easy navigation to switch between various statistics views.
+
+## Data Model
+
+```kotlin
+@Parcelize
+data class Exercise(
+    var name: String,
+    var duration: Int,
+    var sets: Int,
+    var reps: Int,
+    var caloriesBurned: Int,
+    var date: String
+) : Parcelable
