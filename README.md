@@ -32,9 +32,12 @@
 - **LiveData & ViewModel**: Ensures real-time data updates and lifecycle-aware components.
 - **RecyclerView**: Displays exercise list with smooth scrolling and complex layouts.
 
-## Screenshots
+## Screenshots APp
 
-(Add screenshots here to give users a visual representation of the app.)
+![image](https://github.com/user-attachments/assets/b4b88df3-56f4-42cb-be28-78f508794a66)
+
+![image](https://github.com/user-attachments/assets/8887841c-d57d-4637-9d45-7e16f42155de)
+
 
 ## Layouts
 
