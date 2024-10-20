@@ -61,6 +61,7 @@ dependencies {
     val room_version = "2.6.1"
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.room.compiler3)
-    kapt("androidx.room:room-compiler:$room_version")
-// To use Kotlin annotation processing tool (kapt)
+    kapt("androidx.room:room-compiler:$room_version")// To use Kotlin annotation processing tool (kapt)
+    implementation (libs.mpandroidchart) // Use MPAndroidChart for charts
+
 }
