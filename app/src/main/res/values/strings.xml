@@ -1,5 +1,13 @@
 <resources>
-    <string name="app_name">Assignment3_KeepTrack</string>
+    <string name="app_name">Keep Track</string>
+    <string name="exercise_name_default">Push-ups</string>
+    <string name="exercise_duration_label">Duration: %1$d mins</string>
+    <string name="exercise_sets_label">Sets: %1$d</string>
+    <string name="exercise_reps_label">Reps: %1$d</string>
+    <string name="exercise_calories_label">Calories Burned: %1$d kcal</string>
+    <string name="exercise_date_label">Date: %1$s</string>
+    <string name="delete_button_text">Delete</string>
+    <string name="add_exercise_button_description">Add Exercise</string>
     <string-array name="difficulty_levels">
         <item>Easy</item>
         <item>Medium</item>

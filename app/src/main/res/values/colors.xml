@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#6200EE</color> <!-- Primary color -->
+    <color name="colorPrimaryDark">#3700B3</color> <!-- Darker shade -->
+    <color name="colorAccent">#03DAC5</color> <!-- Accent color -->
+    <color name="colorSecondary">#FFBB86FC</color> <!-- Secondary color -->
+    <color name="colorError">#B00020</color> <!-- Error color -->
+    <color name="colorBackground">#FFFFFF</color> <!-- Background color -->
+    <color name="colorText">#000000</color> <!-- Default text color -->
+    <color name="colorLightGray">#F5F5F5</color> <!-- Light gray for item background -->
 </resources>

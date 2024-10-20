@@ -3,7 +3,24 @@
     <style name="Base.Theme.Assignment3_KeepTrack" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+    </style>
+    <style name="ExerciseItemStyle">
+        <item name="android:padding">16dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:elevation">2dp</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+    <style name="TextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorText</item>
     </style>
 
+    <style name="TextStyleBold" parent="TextStyle">
+        <item name="android:textStyle">bold</item>
+    </style>
     <style name="Theme.Assignment3_KeepTrack" parent="Base.Theme.Assignment3_KeepTrack" />
 </resources>

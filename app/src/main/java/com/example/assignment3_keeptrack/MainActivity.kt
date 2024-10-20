@@ -25,10 +25,21 @@ class MainActivity : AppCompatActivity() {
     private val addExerciseLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                val exercise = result.data?.getParcelableExtra<Exercise>(EXTRA_EXERCISE)
+                val exercise = result.data?.getParcelableExtra(EXTRA_EXERCISE, Exercise::class.java)
                 exercise?.let {
                     // Add the new exercise to the database
                     saveExercise(it)
+                }
+            }
+        }
+
+    private val editExerciseLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val updatedExercise = result.data?.getParcelableExtra(EXTRA_EXERCISE, Exercise::class.java)
+                updatedExercise?.let {
+                    // Update the exercise in the database
+                    updateExercise(it)
                 }
             }
         }
@@ -58,12 +69,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
     private fun setupRecyclerView() {
-        exerciseAdapter = ExerciseAdapter(exerciseList) {
-            // Handle item clicks if needed (e.g., edit or view details)
-        }
+        exerciseAdapter = ExerciseAdapter(exerciseList, { exercise ->
+            // Handle edit action
+            val intent = Intent(this, EditExerciseActivity::class.java).apply {
+                putExtra(EXTRA_EXERCISE, exercise)
+            }
+            editExerciseLauncher.launch(intent) // Launch EditExerciseActivity
+        }, { exercise ->
+            // Handle delete action
+            deleteExercise(exercise)
+        })
+
         binding.exerciseRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = exerciseAdapter
@@ -83,6 +100,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateExercise(updatedExercise: Exercise) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                exerciseDao.update(updatedExercise) // Ensure this method exists in ExerciseDao
+                fetchExercisesFromDatabase() // Refresh the exercise list
+            } catch (e: Exception) {
+                Log.e("ExerciseDatabase", "Error updating exercise: ${e.message}")
+            }
+        }
+    }
+
+    private fun deleteExercise(exercise: Exercise) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                exerciseDao.delete(exercise) // Ensure this method exists in ExerciseDao
+                fetchExercisesFromDatabase() // Refresh the exercise list
+            } catch (e: Exception) {
+                Log.e("ExerciseDatabase", "Error deleting exercise: ${e.message}")
+            }
+        }
+    }
 
     private fun fetchExercisesFromDatabase() {
         Log.d("ExerciseDatabase", "Attempting to fetch exercises from database.")
@@ -96,6 +134,4 @@ class MainActivity : AppCompatActivity() {
             exerciseAdapter.notifyDataSetChanged()
         }
     }
-
-
 }

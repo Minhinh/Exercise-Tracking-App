@@ -3,22 +3,30 @@ package com.example.assignment3_keeptrack
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class ExerciseAdapter(
     private val exercises: List<Exercise>,
-    private val onClick: (Exercise) -> Unit
+    private val onClick: (Exercise) -> Unit,
+    private val onDelete: (Exercise) -> Unit // Lambda for delete action
 ) : RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
 
     inner class ExerciseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val exerciseName: TextView = view.findViewById(R.id.exercise_name)
         val exerciseDetails: TextView = view.findViewById(R.id.exercise_details)
         val exerciseCalories: TextView = view.findViewById(R.id.exercise_calories)
+        private val deleteButton: Button = view.findViewById(R.id.deleteButton) // Add delete button
 
         init {
             view.setOnClickListener {
-                onClick(exercises[bindingAdapterPosition]) // `bindingAdapterPosition` replaces `adapterPosition`
+                onClick(exercises[bindingAdapterPosition]) // Handle click for editing
+            }
+
+            // Handle click for deleting the exercise
+            deleteButton.setOnClickListener {
+                onDelete(exercises[bindingAdapterPosition])
             }
         }
     }
