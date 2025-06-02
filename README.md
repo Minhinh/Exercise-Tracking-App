@@ -1,8 +1,8 @@
-# Assignment3_KeepTrack - Exercise Tracking App
+# KeepTrack - Exercise Tracking App
 
 ## Overview
 
-**Assignment3_KeepTrack** is an Android application designed to help users keep track of their exercises and workouts. The app allows users to add, edit, delete, and view detailed information about their exercises, as well as track their progress over time. It integrates advanced features like search/filtering, LiveData for real-time updates, and displays statistics to help users analyze their workout routines. The app is implemented using Kotlin, with a focus on traditional XML layouts and modern Android development practices.
+An Android application designed to help users keep track of their exercises and workouts. The app allows users to add, edit, delete, and view detailed information about their exercises, as well as track their progress over time. It integrates advanced features like search/filtering, LiveData for real-time updates, and displays statistics to help users analyze their workout routines. The app is implemented using Kotlin, with a focus on traditional XML layouts and modern Android development practices.
 
 ## Features
 
